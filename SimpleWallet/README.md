@@ -58,16 +58,14 @@ c.setProvider(provider);
 var app;
 c.at(address).then(function(instance){app = instance;});
 
-var account0 = (await web3.eth.getAccounts())[0]
-var account1 = (await web3.eth.getAccounts())[1]
-var account2 = (await web3.eth.getAccounts())[2]
+let accounts = await web3.eth.getAccounts()
 
-app.init([account0, account1, account2], {from: account0})
+app.init([accounts[0], accounts[1], accounts[2]], {from: accounts[0]})
 
-app.isSigner.call(account0, {from: account0})
+app.isSigner.call(accounts[0], {from: accounts[0]})
 // true
-app.isSigner.call(account0, {from: account1})
+app.isSigner.call(accounts[1], {from: accounts[0]})
 // true
-app.isSigner.call(account0, {from: account2})
+app.isSigner.call(accounts[2], {from: accounts[0]})
 // true
 ```
